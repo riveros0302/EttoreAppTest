@@ -24,9 +24,9 @@ Si deseas clonar y correr este proyecto en tu máquina:
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/ettore-app.git
-cd ettore-app
-```
+git clone https://github.com/riveros0302/EttoreAppTest.git
+cd ./EttoreAppTest
+
 
 npm install
 
@@ -35,10 +35,12 @@ npm install
 yarn install
 
 npx expo start
+```
 
 Luego escanea el código QR con Expo Go desde tu dispositivo móvil para ver la app en vivo.
 
-🧱 Tecnologías utilizadas
+# 🧱 Tecnologías utilizadas
+
 React Native
 
 Expo SDK 53
