@@ -1,39 +1,33 @@
 import { Button, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomButton from "../components/CustomButton";
 import CustomCard from "../components/CustomCard";
 import { useThemeContext } from "../context/ThemeContext";
 import { Theme } from "../types/theme";
 import ButtonIcon from "../components/ButtonIcon";
 import { useToast } from "expo-toast";
+import CustomTitle from "../components/CustomTitle";
+import useUser from "../hooks/useHome";
+import useHome from "../hooks/useHome";
 
 export default function HomeScreen() {
   const { theme } = useThemeContext();
   const styles = getStyles(theme);
-  const [loading, setLoading] = useState(false);
-  const toast = useToast();
-
-  const syncSteps = () => {
-    setLoading(true);
-    setTimeout(() => {
-      toast.show("Sincronización exitosa con el dispositivo BLE");
-      setLoading(false);
-    }, 2000);
-  };
+  const { loading, syncSteps, user } = useHome();
 
   return (
     <View style={styles.container}>
       <CustomCard>
-        <Text style={styles.primaryText}>Hola Bryan</Text>
-        <Text style={styles.secondaryText}>Sistema inicializado</Text>
+        <CustomTitle
+          title={`Hola ${user?.name}`}
+          description="Sistema inicializado"
+        />
       </CustomCard>
-      <CustomCard>
-        <View style={styles.containSteps}>
-          <ButtonIcon iconName="pulse" onPress={() => {}} />
-          <View>
-            <Text style={styles.secondaryText}>Pasos hoy</Text>
-            <Text style={styles.primaryText}>7.850 pasos</Text>
-          </View>
+      <CustomCard style={styles.containSteps}>
+        <ButtonIcon iconName="pulse" style={{ alignSelf: "center" }} />
+        <View>
+          <Text style={styles.secondaryText}>Pasos hoy</Text>
+          <Text style={styles.primaryText}>{user?.steps} pasos</Text>
         </View>
       </CustomCard>
       <CustomButton
@@ -49,6 +43,7 @@ const getStyles = (theme: Theme) => {
   return StyleSheet.create({
     container: {
       gap: 20,
+
       width: "90%",
       alignSelf: "center",
     },

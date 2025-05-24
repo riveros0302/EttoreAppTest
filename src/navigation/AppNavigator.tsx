@@ -5,6 +5,7 @@ import TipsScreen from "../screens/TipsScreen";
 import { Alert, Button, Text, View } from "react-native";
 import ButtonIcon from "../components/ButtonIcon";
 import { useThemeContext } from "../context/ThemeContext";
+import ButtonTheme from "../components/ButtonTheme";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,11 +15,13 @@ export default function AppNavigator() {
     <Stack.Navigator
       initialRouteName="Home"
       screenOptions={{
-        headerTintColor: "white",
+        headerTintColor: theme.primaryText,
         headerStyle: { backgroundColor: theme.background },
         contentStyle: {
           backgroundColor: theme.background,
         },
+        headerLeft: () => <ButtonTheme />,
+        headerTitle: "EttoreApp",
       }}
     >
       <Stack.Screen
@@ -31,10 +34,6 @@ export default function AppNavigator() {
               onPress={() => navigation.navigate("Tips")}
             />
           ),
-          headerTitle: "EttoreApp",
-          animation: "none",
-          headerBackVisible: false,
-          headerTintColor: theme.primaryText,
         })}
       />
       <Stack.Screen
@@ -44,11 +43,9 @@ export default function AppNavigator() {
           headerRight: () => (
             <ButtonIcon
               iconName="heart-pulse"
-              onPress={() => navigation.navigate("Home")}
+              onPress={() => navigation.goBack()}
             />
           ),
-          headerTitle: "EttoreApp",
-          animation: "none",
           headerBackVisible: false,
         })}
       />
